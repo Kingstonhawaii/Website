@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>HiddenWorld - Clothing Brand</title>
+<style>
+  /* Reset and general styles omitted for brevity, same as previous but included here for completeness */
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #037ca8;
+    padding: 15px 20px;
+  }
+
+  .logo img {
+    width: 50px;
+  }
+
+  nav {
+    display: flex;
+    gap: 20px;
+  }
+
+  nav a {
+    color: #FBE9D0;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+  }
+  nav a:hover {
+    color: #ffd700;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .search-bar {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+
+  .icon {
+    font-size: 20px;
+    cursor: pointer;
+    color: white;
+    transition: transform 0.2s;
+  }
+  .icon:hover {
+    transform: scale(1.2);
+  }
+
+  .hero {
+    background-color: #037ca8;
+    color: #FBE9D0;
+    text-align: center;
+    padding: 40px 20px;
+  }
+
+  .hero h1 {
+    font-size: 3em;
+    margin-bottom: 10px;
+  }
+
+  .hero p {
+    font-size: 1.2em;
+  }
+
+  .main-container {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 20px auto;
+    gap: 20px;
+  }
+
+  .about {
+    flex: 1 1 30%;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    min-width: 250px;
+  }
+
+  .best-sellers {
+    flex: 1 1 65%;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .product-item {
+    background-color: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: calc(33.333% - 20px);
+    min-width: 200px;
+    padding: 10px;
+    transition: box-shadow 0.3s, transform 0.3s;
+    cursor: pointer;
+  }
+  .product-item:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transform: translateY(-2px);
+  }
+
+  .product-item h3 {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+  }
+
+  .product-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+
+  /* Footer */
+  footer {
+    background-color: #35424a;
+    color: #FBE9D0;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+  }
+
+  .social-media {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .social-media a img {
+    width: 30px;
+    height: 30px;
+    transition: transform 0.2s;
+  }
+  .social-media a img:hover {
+    transform: scale(1.2);
+  }
+
+  /* Modal overlay for product details */
+  #productModal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  #productModal.show {
+    display: flex;
+  }
+  .product-details {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    max-width: 600px;
+    width: 90%;
+    position: relative;
+  }
+  .product-details h2 {
+    margin-bottom: 15px;
+  }
+  .product-details img {
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+  }
+  .close-btn {
+    position: absolute;
+    top: 10px; right: 10px;
+    background: #555;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 0.9em;
+  }
+  /* Additional styles for layout, buttons, etc. can be added here */
+
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <!-- Replace with your logo URL -->
+    <img src="your-logo-url.png" alt="HiddenWorld Logo" />
+  </div>
+  <nav>
+    <a href="#home" onclick="navigateTo('home')">Home</a>
+    <a href="about.html" target="_blank">About</a>
+    <a href="mens.html" target="_blank">Mens Clothing</a>
+    <a href="womens.html" target="_blank">Womens Clothing</a>
+    <a href="contact.html" target="_blank">Contact</a>
+  </nav>
+  <div class="header-right">
+    <input type="text" class="search-bar" placeholder="Search..." />
+    <a href="#cart" class="icon" title="Cart">🛒</a>
+    <a href="#profile" class="icon" title="Profile">👤</a>
+  </div>
+</header>
+
+<div class="hero" id="home">
+  <h1>HiddenWorld</h1>
+  <p>Only Best For You!</p>
+</div>
+
+<div class="main-container">
+  <!-- About Us -->
+  <div class="about" id="about">
+    <h2>About Us</h2>
+    <p>HiddenWorld is an up coming clothing brand.</p>
+  </div>
+
+  <!-- Best Sellers -->
+  <div class="best-sellers" id="best-sellers">
+    <h2 style="width:100%; text-align:center; margin-bottom:20px;">Best Selling Items</h2>
+    <!-- Sample products -->
+    <div class="product-item" onclick="showProduct('product1')">
+      <h3>Men's Shirt</h3>
+      <img src="placeholder-shirt1.jpg" alt="Men's Shirt" />
+      <p>Price: $29.99</p>
+      <button onclick="event.stopPropagation(); showProduct('product1')">View Product</button>
+    </div>
+    <div class="product-item" onclick="showProduct('product2')">
+      <h3>Women's Blouse</h3>
+      <img src="placeholder-shirt2.jpg" alt="Women's Blouse" />
+      <p>Price: $34.99</p>
+      <button onclick="event.stopPropagation(); showProduct('product2')">View Product</button>
+    </div>
+    <div class="product-item" onclick="showProduct('product3')">
+      <h3>Casual T-Shirt</h3>
+      <img src="placeholder-shirt3.jpg" alt="Casual T-Shirt" />
+      <p>Price: $19.99</p>
+      <button onclick="event.stopPropagation(); showProduct('product3')">View Product</button>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="social-media">
+    <a href="https://www.tiktok.com" target="_blank" title="TikTok"><img src="https://www.pngrepo.com/png/303159/512/tiktok-icon-black-1-logo.png" alt="TikTok"></a>
+    <a href="https://www.instagram.com" target="_blank" title="Instagram"><img src="https://logodownload.org/wp-content/uploads/2017/04/instagram-logo.png" alt="Instagram"></a>
+    <a href="https://www.youtube.com" target="_blank" title="YouTube"><img src="https://tiermaker.com/images/media/hero_images/2024/15783486/youtube-tier-list-my-version-15783486/157834861701304139.webp" alt="YouTube"></a>
+  </div>
+  <p>© 2025 HiddenWorld. All Rights Reserved.</p>
+</footer>
+
+<!-- Modal for product details -->
+<div id="productModal">
+  <div class="product-details">
+    <button class="close-btn" onclick="closeProduct()">X</button>
+    <h2 id="modalTitle"></h2>
+    <img id="modalImage" src="" alt="">
+    <p id="modalDescription"></p>
+    <label for="sizeSelect">Size:</label>
+    <select id="sizeSelect" class="size-select">
+      <option>S</option>
+      <option>M</option>
+      <option>L</option>
+      <option>XL</option>
+      <option>XXL</option>
+    </select>
+    <div style="margin-top:15px;">
+      <button onclick="addToBag()">+</button>
+      <button onclick="removeFromBag()">-</button>
+      <button style="margin-left:10px; background-color:#037ca8; color:#fff; border:none; padding:8px 12px; border-radius:4px; cursor:pointer;" onclick="addToBag()">ADD TO BAG</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Sample product data
+  const products = {
+    product1: {
+      title: "Men's Shirt",
+      image: "placeholder-shirt1.jpg",
+      description: "This is a cool men's shirt made from breathable fabric."
+    },
+    product2: {
+      title: "Women's Blouse",
+      image: "placeholder-shirt2.jpg",
+      description: "Elegant women's blouse, perfect for any occasion."
+    },
+    product3: {
+      title: "Casual T-Shirt",
+      image: "placeholder-shirt3.jpg",
+      description: "Comfortable casual T-Shirt available in multiple colors."
+    }
+  };
+
+  function showProduct(productId) {
+    const product = products[productId];
+    document.getElementById("modalTitle").innerText = product.title;
+    document.getElementById("modalImage").src = product.image;
+    document.getElementById("modalDescription").innerText = product.description;
+    document.getElementById("productModal").classList.add("show");
+  }
+
+  function closeProduct() {
+    document.getElementById("productModal").classList.remove("show");
+  }
+
+  function addToBag() {
+    alert("Item added to bag!");
+  }
+
+  function removeFromBag() {
+    alert("Item removed from bag!");
+  }
+
+  // Navigation function for internal pages
+  function navigateTo(page) {
+    // You can customize this if you have different pages
+    // For now, just alert or redirect
+    // Example: window.location.href = page + ".html";
+    // Or, if all in one page, scroll or do nothing
+    alert("Navigate to " + page);
+  }
+</script>
+
+</body>
+</html>
